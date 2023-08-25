@@ -49,14 +49,14 @@ async def stats(_, message, edit_mode=False):
     cpuUsage    = cpu_percent(interval=1)
     v_core      = cpu_count(logical=True) - cpu_count(logical=False)
     memory      = virtual_memory()
-    swap        = swap_memory()
     mem_p       = memory.percent
+    swap        = swap_memory()
 
     bot_stats = f'<b><i><u>Zee Bot Statistics</u></i></b>\n\n'\
-                f'<code>CPU  : </code>{get_progress_bar_string(cpuUsage)} {cpuUsage}%\n' \
-                f'<code>RAM  : </code>{get_progress_bar_string(mem_p)} {mem_p}%\n' \
-                f'<code>SWAP : </code>{get_progress_bar_string(swap.percent)} {swap.percent}%\n' \
-                f'<code>DISK : </code>{get_progress_bar_string(disk)} {disk}%\n\n' \
+                f'<code>CPU  : {get_progress_bar_string(cpuUsage)}</code> {cpuUsage}%\n' \
+                f'<code>RAM  : {get_progress_bar_string(mem_p)}</code> {mem_p}%\n' \
+                f'<code>SWAP : {get_progress_bar_string(swap.percent)}</code> {swap.percent}%\n' \
+                f'<code>DISK : {get_progress_bar_string(disk)}</code> {disk}%\n\n' \
                 f'<code>Bot Uptime      : </code> {botTime}\n' \
                 f'<code>Uploaded        : </code> {sent}\n' \
                 f'<code>Downloaded      : </code> {recv}\n' \
@@ -123,7 +123,7 @@ async def send_repo_stats(_, query):
         version     = 'N/A'
         change_log  = 'N/A'
 
-    stats_part3 = f'<b><i><u>Repo Info</u></i></b>\n\n' \
+    repo_stats = f'<b><i><u>Repo Info</u></i></b>\n\n' \
                   f'<code>Updated   : </code> {last_commit}\n' \
                   f'<code>Version   : </code> {version}\n' \
                   f'<code>Changelog : </code> {change_log}'
@@ -134,7 +134,7 @@ async def send_repo_stats(_, query):
     buttons.ibutton("Close", "close_signal")
     sbtns = buttons.build_menu(2)
     await query.answer()
-    await query.message.edit_text(stats_part3, reply_markup=sbtns)
+    await query.message.edit_text(repo_stats, reply_markup=sbtns)
 
 
 async def send_bot_limits(_, query):
